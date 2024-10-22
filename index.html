@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABM Futbolistas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="form-datos">
+        <h2>Form Datos</h2>
+        <label for="filter">Filtrar Por:</label>
+        <select id="filter" onchange="filtrarDatos()">
+            <option value="todos">Todos</option>
+            <option value="futbolistas">Futbolistas</option>
+            <option value="profesionales">Profesionales</option>
+        </select><br><br>
+        <div style="display: flex; align-items: center;">
+            <label>Edad promedio:</label>
+            <input type="text" id="edad-promedio" readonly style="width: 100px; margin-right: 5px;">
+            <button onclick="calcularEdadPromedio()">Calcular</button>
+        </div>
+
+        <h4>Mostrar columnas:</h4>
+        <div>
+            <label><input type="checkbox" checked data-column="id" onchange="mostrarColumnas()"> ID</label>
+            <label><input type="checkbox" checked data-column="nombre" onchange="mostrarColumnas()"> Nombre</label>
+            <label><input type="checkbox" checked data-column="apellido" onchange="mostrarColumnas()"> Apellido</label>
+            <label><input type="checkbox" checked data-column="edad" onchange="mostrarColumnas()"> Edad</label>
+            <label><input type="checkbox" checked data-column="equipo" onchange="mostrarColumnas()"> Equipo</label>
+            <label><input type="checkbox" checked data-column="posicion" onchange="mostrarColumnas()"> Posición</label>
+            <label><input type="checkbox" checked data-column="cantidadGoles" onchange="mostrarColumnas()"> Cant. Goles</label>
+            <label><input type="checkbox" checked data-column="titulo" onchange="mostrarColumnas()"> Título</label>
+            <label><input type="checkbox" checked data-column="facultad" onchange="mostrarColumnas()"> Facultad</label>
+            <label><input type="checkbox" checked data-column="añoGraduacion" onchange="mostrarColumnas()"> Año Graduación</label>
+        </div><br>
+
+        <table id="tabla-personas">
+            <thead>
+                <tr>
+                    <th onclick="ordenarTabla('id')">ID</th>
+                    <th onclick="ordenarTabla('nombre')">Nombre</th>
+                    <th onclick="ordenarTabla('apellido')">Apellido</th>
+                    <th onclick="ordenarTabla('edad')">Edad</th>
+                    <th onclick="ordenarTabla('equipo')">Equipo</th>
+                    <th onclick="ordenarTabla('posicion')">Posición</th>
+                    <th onclick="ordenarTabla('cantidadGoles')">Cant. Goles</th>
+                    <th onclick="ordenarTabla('titulo')">Título</th>
+                    <th onclick="ordenarTabla('facultad')">Facultad</th>
+                    <th onclick="ordenarTabla('añoGraduacion')">Año Graduación</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table><br>
+        <button onclick="mostrarABM()">Agregar</button>
+    </div>
+
+    <div id="form-abm" style="display: none;">
+        <h2>Formulario ABM</h2>
+        <form id="abm-form">
+            <input type="hidden" id="id">
+            <div class="campo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required><br>
+            </div><br>
+            <div class="campo">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" required><br>
+            </div><br>            
+            <div class="campo">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" min="15" required><br>
+            </div><br>
+            <div class="campo">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" onchange="mostrarCamposPorTipo()">
+                    <option value="tipo_futbolistas">Futbolista</option>
+                    <option value="tipo_profesionales">Profesional</option>
+                </select><br>
+            </div><br>
+            <div class="campo">
+                <label for="equipo">Equipo:</label>
+                <input type="text" id="equipo">
+            </div>
+            <div class="campo">
+                <label for="posicion">Posición:</label>
+                <input type="text" id="posicion">
+            </div>
+            <div class="campo">
+                <label for="cantidadGoles">Cant. Goles:</label>
+                <input type="number" id="cantidadGoles" min="15">
+            </div>
+            <div class="campo">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo">
+            </div>
+            <div class="campo">
+                <label for="facultad">Facultad:</label>
+                <input type="text" id="facultad">
+            </div>
+            <div class="campo">
+                <label for="añoGraduacion">Año Graduación:</label>
+                <input type="number" id="añoGraduacion" min="1950">
+            </div><br>
+            <button type="button" onclick="guardarPersona()" readonly style="background-color: rgb(1, 167, 1);">Alta</button>
+            <button type="button" onclick="modificarPersona()">Modificar</button>
+            <button type="button" onclick="eliminarPersona()">Eliminar</button>
+            <button type="button" onclick="cancelarABM()" readonly style="background-color: #f00;">Cancelar</button>
+        </form>
+    </div>
+</body>
+</html>
